@@ -2,15 +2,30 @@
   "name": "odin-members-only",
   "version": "0.0.0",
   "private": true,
+  "mode": "development",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node --env-file=.env ./bin/www",
+    "dev": "node --env-file=.env --watch ./bin/www",
+    "serverstart": "DEBUG=odin-members-only:* npm run dev"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
-    "ejs": "~2.6.1",
-    "express": "~4.16.1",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-async-handler": "^1.2.0",
+    "express-ejs-layouts": "^2.5.1",
+    "express-rate-limit": "^7.3.1",
+    "express-session": "^1.18.0",
+    "express-validator": "^7.1.0",
+    "helmet": "^7.1.0",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "luxon": "^3.4.4",
+    "mongoose": "^8.4.1",
+    "morgan": "~1.9.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0"
   }
 }
