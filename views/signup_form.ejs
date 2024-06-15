@@ -1,0 +1,41 @@
+<h1>Sign Up!</h1>
+<form class="form-container" action="" method="post">
+  <div class="form-control">
+    <label for="first_name">first name:</label>
+    <input type="text" name="first_name" id="first_name" required />
+  </div>
+  <div class="form-control">
+    <label for="last_name">last name:</label>
+    <input type="text" name="last_name" id="last_name" />
+  </div>
+  <div class="form-control">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" required />
+  </div>
+  <div class="form-control">
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required />
+  </div>
+  <div class="form-control">
+    <label for="password_confirm">Confirm Password:</label>
+    <input
+      type="password"
+      name="password_confirm"
+      id="password_confirm"
+      required
+    />
+  </div>
+  <button class="btn btn-primary" type="submit">Sign Up</button>
+</form>
+<% if (userTaken){ %>
+<p>Username is already taken</p>
+<% } %> <% if (!password_match){ %>
+<p>Passwords don't match</p>
+<% } %> <% if (errors){ %>
+<ul>
+  errors.forEach((error) => {
+  <li><%= error %></li>
+
+  })
+</ul>
+<% } %>;
