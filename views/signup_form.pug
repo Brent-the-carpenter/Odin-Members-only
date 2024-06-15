@@ -1,0 +1,31 @@
+extends layouts/main.pug
+
+block content
+  h1 Sign Up!
+  form.form-container(action="", method="post")
+    .form-control
+      label(for="first_name") First name:
+      input(type="text", name="first_name", id="first_name", value=user ? user.first_name : '')
+    .form-control
+      label(for="last_name") Last name:
+      input(type="text", name="last_name", id="last_name", value=user ? user.last_name : '')
+    .form-control
+      label(for="username") Username:
+      input(type="text", name="username", id="username", value=user ? user.username : '', required=true)
+    .form-control
+      label(for="password") Password:
+      input(type="password", name="password", id="password", required=true)
+    .form-control
+      label(for="password_confirm") Confirm Password:
+      input(type="password", name="password_confirm", id="password_confirm", required=true)
+    button.btn.btn-primary(type="submit") Sign Up
+
+  if userTaken
+    p Username is already taken
+  if password_match === false
+    p Passwords don't match
+  if errors && errors.length > 0
+    ul
+      each error in errors
+        li= error.msg
+

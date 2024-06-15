@@ -4,7 +4,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const expressEjsLayouts = require("express-ejs-layouts");
+
 const helmet = require("helmet");
 const compression = require("compression");
 const RateLimit = require("express-rate-limit");
@@ -39,10 +39,10 @@ async function main() {
 main().catch((err) => debugDB(err));
 
 // View engine setup
-app.use(expressEjsLayouts);
-app.set("layout", "./layouts/main");
+
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
+app.set("view engine", "pug");
+
 app.use(session({ secret: Secret, resave: false, saveUninitialized: true }));
 app.use(passport.session());
 app.use(helmet());
