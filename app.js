@@ -41,6 +41,7 @@ main().catch((err) => debugDB(err));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
+// set up express session needs a store for session's or they wont persist when server is restarted.
 app.use(
   session({
     secret: Secret,
@@ -76,7 +77,7 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
-// Setup flash locals
+// Setup flash  to save messages to locals
 app.use((req, res, next) => {
   res.locals.success_messages = req.flash("success");
   res.locals.error_messages = req.flash("error");

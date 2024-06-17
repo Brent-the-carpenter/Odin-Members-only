@@ -69,6 +69,7 @@ exports.post_sign_up = [
       if (req.body.password !== req.body.password_confirm) {
         options.password_match = false;
         options.user = userInfo;
+        // map errors so we can use propertys to have errors display under each corrosponding input.
         options.errors = errors.mapped();
         return res.render("signup_form", options);
       }

@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node --env-file=.env ./bin/www",
     "dev": "node --env-file=.env --watch ./bin/www",
-    "serverstart": "DEBUG=odin-members-only:* npm run dev"
+    "serverstart": "DEBUG=odin-members-only:* npm run dev",
+    "lint": "eslint"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -28,5 +29,10 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pug": "^3.0.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.5.0",
+    "eslint": "^9.5.0",
+    "globals": "^15.6.0"
   }
 }

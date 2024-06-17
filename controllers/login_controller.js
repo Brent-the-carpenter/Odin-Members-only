@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
-const User = require("../models/user");
+
 const passport = require("../config/passportConfig");
 
 const options = { title: "Login", user: {} };
@@ -18,6 +18,7 @@ exports.post_login = [
       return res.render("login_form", options);
     }
 
+    // passport options {onFailure  , on success} don't work in route handler need to use callback instead.
     passport.authenticate("local", (err, user, info) => {
       if (err) {
         return next(err);

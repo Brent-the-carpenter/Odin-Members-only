@@ -1,9 +1,18 @@
 extends layouts/main.pug
 
 block content
-  .welcome
-    h2 Welcome to #{title}
-    if currentUser
-      p How are you today, #{currentUser.first_name}.
-    else
-      p You are not logged in.
+  .container
+    if success_messages.length 
+      .alert.alert-success
+        each msg in success_messages
+          p= msg
+    if error_messages.length
+      .alert.alert-danger
+        each msg in error_messages
+          p= msg
+    .welcome
+      h2 Welcome to #{title}
+      if currentUser
+        p How are you today, #{currentUser.first_name}.
+      else
+        p You are not logged in.

@@ -17,7 +17,11 @@ router.post("/login", login_controller.post_login);
 router.get("/logout", logout_controller.get_logout);
 
 /*secret question route*/
-router.get("/members", ensureAuthenticated, secret_controller.get_secret_form);
-router.post("/members", secret_controller.post_secret_form);
+router.get(
+  "/becomeMember",
+  ensureAuthenticated,
+  secret_controller.get_secret_form
+);
+router.post("/becomeMember", secret_controller.post_secret_form);
 
 module.exports = router;

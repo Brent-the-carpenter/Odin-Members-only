@@ -5,6 +5,7 @@ exports.get_logout = asyncHandler(async (req, res, next) => {
     if (err) {
       return next(err);
     }
+    // destroy session so user is not logged in when revisiting.
     req.session.destroy((err) => {
       if (err) {
         next(err);
