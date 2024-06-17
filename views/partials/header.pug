@@ -7,5 +7,13 @@ header
         a(href="/") Home
       li
         a(href="/user/signup") Sign Up
-      li
-        a(href="/user/login") Contact
+      li 
+        a(href="/user/members") Become a Member
+      if currentUser
+        li
+          a(href="/user/logout") Log Out
+      else
+        li
+          a(href="/user/login") Log In
+        li
+

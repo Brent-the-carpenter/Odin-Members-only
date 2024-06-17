@@ -3,6 +3,7 @@
 /**
  * Module dependencies.
  */
+const mongoose = require("mongoose");
 const app = require("../app");
 const debug = require("debug")("odin-members-only:server");
 const http = require("http");
@@ -83,3 +84,13 @@ function onListening() {
   const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
   debug("Listening on " + bind);
 }
+
+function gracefulShutdown() {
+  server.close(async () => {
+    console.log("HTTP server closed");
+    await mongoose.connection.close(false);
+    console.log("MongoDb connection closed");
+    process.exit(0);
+  });
+}
+process.on("SIGINT", gracefulShutdown).on("SIGTERM", gracefulShutdown);

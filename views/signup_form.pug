@@ -4,28 +4,34 @@ block content
   h1 Sign Up!
   form.form-container(action="", method="post")
     .form-control
-      label(for="first_name") First name:
-      input(type="text", name="first_name", id="first_name", value=user ? user.first_name : '')
+      label.form-label(for="first_name") First name:
+      input.form-input(type="text", name="first_name", id="first_name", value=user ? user.first_name : '')
+      if errors.first_name
+        p.error= errors.first_name.msg 
     .form-control
-      label(for="last_name") Last name:
-      input(type="text", name="last_name", id="last_name", value=user ? user.last_name : '')
+      label.form-label(for="last_name") Last name:
+      input.form-input(type="text", name="last_name", id="last_name", value=user ? user.last_name : '')
+      if errors.last_name
+        p.error= errors.last_name.msg
     .form-control
-      label(for="username") Username:
-      input(type="text", name="username", id="username", value=user ? user.username : '', required=true)
+      label.form-label(for="username") Username:
+      input.form-input(type="text", name="username", id="username", value=user ? user.username : '', required=true)
+      if errors.username
+        p.error= errors.username.msg
+      if userTaken
+        p.error Username is already taken
     .form-control
-      label(for="password") Password:
-      input(type="password", name="password", id="password", required=true)
+      label.form-label(for="password") Password:
+      input.form-input(type="password", name="password", id="password", required=true)
+      if errors.password
+        p.error= errors.password.msg
     .form-control
-      label(for="password_confirm") Confirm Password:
-      input(type="password", name="password_confirm", id="password_confirm", required=true)
+      label.form-label(for="password_confirm") Confirm Password:
+      input.form-input(type="password", name="password_confirm", id="password_confirm", required=true)
+      if errors.password_confirm
+        p.error= errors.password_confirm.msg
+      if password_match === false
+        p.error Passwords don't match
     button.btn.btn-primary(type="submit") Sign Up
 
-  if userTaken
-    p Username is already taken
-  if password_match === false
-    p Passwords don't match
-  if errors && errors.length > 0
-    ul
-      each error in errors
-        li= error.msg
 

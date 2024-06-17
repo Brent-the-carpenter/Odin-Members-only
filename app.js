@@ -9,17 +9,15 @@ const helmet = require("helmet");
 const compression = require("compression");
 const RateLimit = require("express-rate-limit");
 const mongoose = require("mongoose");
+const MongoStore = require("connect-mongo");
 const debugDB = require("debug")("app:db");
-const passport = require("passport");
-const passportConfig = require("./config/passportConfig");
 
+const passport = require("./config/passportConfig");
+const flash = require("connect-flash");
 /* Route imports */
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const session = require("express-session");
-
-/* Model imports */
-const User = require("./models/user");
 
 const Secret = process.env.SECRET;
 const MongoDB = process.env.MONGOURI;
@@ -43,8 +41,26 @@ main().catch((err) => debugDB(err));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
-app.use(session({ secret: Secret, resave: false, saveUninitialized: true }));
+app.use(
+  session({
+    secret: Secret,
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+      collectionName: "Sessions",
+      mongoUrl: MongoDB,
+      ttl: 14 * 24 * 60 * 60,
+    }),
+    cookie: {
+      maxAge: 14 * 24 * 60 * 60 * 1000,
+      secure: false,
+      httpOnly: true,
+      sameSite: "strict",
+    },
+  })
+);
 app.use(passport.session());
+app.use(flash());
 app.use(helmet());
 app.use(Limiter);
 app.use(logger("dev"));
@@ -55,21 +71,15 @@ app.use(compression());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Setup passport
-passport.use(passportConfig);
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await User.findById(id);
-    done(null, user);
-  } catch (err) {
-    done(err);
-  }
-});
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  next();
+});
+// Setup flash locals
+app.use((req, res, next) => {
+  res.locals.success_messages = req.flash("success");
+  res.locals.error_messages = req.flash("error");
   next();
 });
 

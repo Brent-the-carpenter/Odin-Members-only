@@ -1,5 +1,9 @@
 extends layouts/main.pug
 
 block content
-  h2 Welcome to #{title}
-  p This is the home page.
+  .welcome
+    h2 Welcome to #{title}
+    if currentUser
+      p How are you today, #{currentUser.first_name}.
+    else
+      p You are not logged in.

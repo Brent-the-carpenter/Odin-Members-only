@@ -12,6 +12,7 @@ exports.get_sign_up = asyncHandler(async (req, res, next) => {
     page: "Sign Up",
     title: options.title,
     user: null,
+    errors: {},
   });
 });
 
@@ -29,7 +30,17 @@ exports.post_sign_up = [
     .isLength({ min: 1 })
     .withMessage("Must be at least one character long."),
   body("username", "Username is required.").trim().escape(),
-  body("password", "Password is required.").trim().escape().isStrongPassword(),
+  body("password")
+    .trim()
+    .escape()
+    .isLength({ min: 10 })
+
+    .isStrongPassword().withMessage(`Password must contain:
+      10 characters,
+      1 uppercase character,
+      1 lowercase character,
+      1 number,
+      1 special character (e.g., $,.,@)`),
   body("password_confirm", "Please confirm your password.").trim().escape(),
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
@@ -41,21 +52,24 @@ exports.post_sign_up = [
     });
 
     if (!errors.isEmpty()) {
-      options.errors = errors.array();
+      console.log(errors);
+      options.errors = errors.mapped();
       options.user = userInfo;
       return res.render("signup_form", options);
     }
 
     try {
       const isUser = await User.find({ username: req.body.username }).exec();
-      if (isUser) {
+      if (isUser.length > 0) {
         options.userTaken = "A account with this username already exsist.";
         options.user = userInfo;
+        options.errors = errors.mapped();
         return res.render("signup_form", options);
       }
       if (req.body.password !== req.body.password_confirm) {
         options.password_match = false;
         options.user = userInfo;
+        options.errors = errors.mapped();
         return res.render("signup_form", options);
       }
       bcrypt.hash(req.body.password, 10, async (err, hashedpassword) => {
@@ -74,7 +88,12 @@ exports.post_sign_up = [
 
         debugSignUp(`saved user: ${user}`);
         await user.save();
-        res.redirect("/");
+        req.logIn(user, (err) => {
+          if (err) {
+            return next(err);
+          }
+          return res.redirect("/");
+        });
       });
     } catch (error) {
       debugSignUp("debugSignUp: error signing up error:", error);
