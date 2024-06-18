@@ -8,14 +8,16 @@ block content
                     p= msg
         h1 Login 
         form.form-container(method="POST")
+            
             .form-control
                 label.form-label(for="username") Username:
                 input.form-input(type="text", name="username", id="username", value= user ? user.username : '', required=true)
-                if errors && errors.username
-                    p.error= errors.username.msg
+               
             .form-control 
                 label.form-label(for="password") Password:
                 input.form-input(type="password", name="password", id="password", required=true)
-                if errors && errors.password
-                    p.error= errors.password.msg
+            if errors
+                for error in errors 
+                    .alert-danger 
+                        p.error= error.msg
             button.btn.btn-primary(type="submit") Login        

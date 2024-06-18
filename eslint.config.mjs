@@ -7,7 +7,10 @@ export default [
   pluginJs.configs.recommended,
   {
     rules: {
-      "no-unused-vars": ["error", { argsIgnorePattern: "next" }],
+      "no-unused-vars": [
+        "error",
+        { argsIgnorePattern: ["next", "req", "res"] },
+      ],
     },
   },
 ];

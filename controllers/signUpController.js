@@ -3,7 +3,6 @@ const { body, validationResult } = require("express-validator");
 const debugSignUp = require("debug")("app:signUp");
 const bcrypt = require("bcryptjs");
 const User = require("../models/user");
-const user = require("../models/user");
 
 const options = { title: "SignUp", user: null };
 exports.get_sign_up = asyncHandler(async (req, res, next) => {

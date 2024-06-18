@@ -1,0 +1,14 @@
+extends layouts/main.pug 
+
+block content 
+    .container 
+
+        h1= title
+        form.form-container(method="POST")
+            .form-control 
+                label(for="title") Title:
+                input.form-control(type="text", name="title", id="title", required=true)
+            .form-control 
+                label(for="message") Message:
+                textarea.form-control(name="message", id="message", required=true)
+            button.btn.btn-primary(type="submit") Create Message

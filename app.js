@@ -4,7 +4,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
+const debug = require("debug")("app:app");
 const helmet = require("helmet");
 const compression = require("compression");
 const RateLimit = require("express-rate-limit");
@@ -86,7 +86,8 @@ app.use((req, res, next) => {
 
 // Debugging middleware to log res.locals
 app.use((req, res, next) => {
-  console.log("res.locals:", res.locals);
+  debug("res.locals:", res.locals);
+  console.log("req.user:", req.user);
   next();
 });
 

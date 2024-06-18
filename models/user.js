@@ -5,9 +5,16 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   first_name: { type: String, required: true, minLength: 1 },
   last_name: { type: String, required: true, minLength: 1 },
-  username: { type: String, required: true, maxLength: 30, minLenght: 3 },
+  username: {
+    type: String,
+    required: true,
+    maxLength: 30,
+    minLenght: 3,
+    unique: true,
+  },
   password: { type: String, required: true, minLength: 10 },
   status: { type: String, enum: ["user", "member", "admin"], default: "user" },
+  messages: [{ type: Schema.ObjectId, ref: "Message", required: true }],
 });
 
 UserSchema.virtual("fullname").get(function () {

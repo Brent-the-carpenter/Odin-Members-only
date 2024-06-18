@@ -5,15 +5,23 @@ header
     ul
       li
         a(href="/") Home
-      li
-        a(href="/user/signup") Sign Up
-      li 
-        a(href="/user/becomeMember") Become a Member
+      if !currentUser
+        li
+          a(href="/user/signup") Sign Up
+      if currentUser && currentUser.status ==='user' 
+        #{console.log('currentUser', currentUser)}
+        li
+          a(href="/user/becomeMember") Become a Member
+      
       if currentUser
+        li 
+          a(href="/user/message") Send Message
         li
           a(href="/user/logout") Log Out
       else
         li
           a(href="/user/login") Log In
-        li
+
+     
+
 
