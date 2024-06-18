@@ -1,3 +1,5 @@
 /node_modules
 .env
 /scripts
+.eslint.config.mjs
+.ReadMe.md
