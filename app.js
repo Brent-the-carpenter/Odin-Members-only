@@ -18,12 +18,14 @@ const flash = require("connect-flash");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const session = require("express-session");
+const message = require("./models/message");
 
 const Secret = process.env.SECRET;
 const MongoDB = process.env.MONGOURI;
 const Limiter = RateLimit({
   windowMs: 1 * 60 * 60 * 1000,
-  max: 500,
+  max: 100,
+  message: "Too many requests from this IP, please try again after an hour",
 });
 
 const app = express();
