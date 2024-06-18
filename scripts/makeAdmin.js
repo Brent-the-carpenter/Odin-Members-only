@@ -12,7 +12,7 @@ async function Main() {
   console.log(`Succefully connected to Database.`);
   try {
     const giveAdmin = await User.findOneAndUpdate(
-      { username: "beh337@gmail.com" },
+      { username: "Brent-The-Carpenter" },
       { status: "admin" },
       { new: true }
     );
