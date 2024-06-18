@@ -27,6 +27,7 @@ const Limiter = RateLimit({
 });
 
 const app = express();
+app.set("trust proxy", 1);
 
 // Set up Mongo
 mongoose.set("strictQuery", false);
