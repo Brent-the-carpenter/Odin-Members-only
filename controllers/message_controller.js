@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const Message = require("../models/message");
 const User = require("../models/user");
+const debug = require("debug")("app:message");
 
 const options = { title: "Members Only", page_title: "Send a message" };
 exports.get_message = asyncHandler(async (req, res, next) => {
@@ -22,7 +23,7 @@ exports.post_message = [
     .withMessage("Message must not be blank."),
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
-    console.log("req body:", req.body);
+    debug("req body:", req.body);
     const message = new Message({
       title: req.body.title,
       message: req.body.message,
@@ -69,10 +70,10 @@ exports.post_delete_message = asyncHandler(async (req, res, next) => {
       { $pull: { messages: deletedMessage._id } },
       { new: true }
     ).exec();
-    console.log(`Updated user messages ${updatedUserMessages}`);
+    debug(`Updated user messages ${updatedUserMessages}`);
     req.flash("success", `Succesfully deleted ${deletedMessage._id} `);
     res.redirect("/");
   } catch (err) {
-    console.error("Error deleting message:", err);
+    debug("Error deleting message:", err);
   }
 });

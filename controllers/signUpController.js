@@ -51,7 +51,6 @@ exports.post_sign_up = [
     });
 
     if (!errors.isEmpty()) {
-      console.log(errors);
       options.errors = errors.mapped();
       options.user = userInfo;
       return res.render("signup_form", options);

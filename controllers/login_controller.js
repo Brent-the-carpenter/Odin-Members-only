@@ -25,7 +25,7 @@ exports.post_login = [
       }
       if (!user) {
         options.errors = [{ msg: info.message }];
-        console.log(info.message);
+
         return res.render("login_form", options);
       }
       req.login(user, (err) => {

@@ -2,7 +2,7 @@
   "name": "odin-members-only",
   "version": "0.0.0",
   "private": true,
-  "mode": "development",
+  "mode": "production",
   "scripts": {
     "start": "node --env-file=.env ./bin/www",
     "dev": "node --env-file=.env --watch ./bin/www",

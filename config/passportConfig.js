@@ -5,7 +5,6 @@ const bcrypt = require("bcryptjs");
 
 const Strategy = new LocalStrategy(async (username, password, done) => {
   try {
-    console.log(username);
     const user = await User.findOne({ username: username });
     if (!user) {
       return done(null, false, { message: "Incorrect username" });
