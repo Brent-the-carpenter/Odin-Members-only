@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node --env-file=.env ./bin/www",
     "dev": "node --env-file=.env --watch ./bin/www",
-    "serverstart": "DEBUG=app:app npm run dev",
+    "serverstart": "DEBUG=app:app,odin-members-only:server npm run dev",
     "lint": "eslint"
   },
   "dependencies": {

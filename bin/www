@@ -87,9 +87,9 @@ function onListening() {
 
 function gracefulShutdown() {
   server.close(async () => {
-    console.log("HTTP server closed");
+    debug("HTTP server closed");
     await mongoose.connection.close(false);
-    console.log("MongoDb connection closed");
+    debug("MongoDb connection closed");
     process.exit(0);
   });
 }

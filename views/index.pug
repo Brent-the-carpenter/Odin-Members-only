@@ -13,6 +13,23 @@ block content
     .welcome
       h2 Welcome to #{title}
       if currentUser
-        p How are you today, #{currentUser.first_name}.
+        p How are you today, #{currentUser.first_name}?
       else
         p You are not logged in.
+    .message-container
+      h2 Messages
+      if messages.length
+        .messages 
+          each message in messages
+            .message
+              h3= message.title
+              p.message-text= message.message
+              if currentUser && currentUser.status ==="admin" || currentUser && currentUser.status ==="member"
+                p.message-author sent by: #{message.author.first_name} on #{message.date}
+              if currentUser && currentUser.status ==="admin"
+                form(action="/user/deleteMessage" method="post") 
+                  input(type="hidden" name="message_id" value=message._id)
+                  button.btn.alert-danger(type="submit") Delete
+                
+      else 
+        p No messages found.       

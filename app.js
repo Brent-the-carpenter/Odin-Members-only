@@ -87,7 +87,7 @@ app.use((req, res, next) => {
 // Debugging middleware to log res.locals
 app.use((req, res, next) => {
   debug("res.locals:", res.locals);
-  console.log("req.user:", req.user);
+
   next();
 });
 

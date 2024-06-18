@@ -7,8 +7,12 @@ block content
         form.form-container(method="POST")
             .form-control 
                 label(for="title") Title:
-                input.form-control(type="text", name="title", id="title", required=true)
+                input.form-control(type="text", name="title", id="title", value= message ? message.title : "" required=true)
+                if errors && errors.title 
+                    p.error= errors.title.msg
             .form-control 
                 label(for="message") Message:
-                textarea.form-control(name="message", id="message", required=true)
+                textarea.form-control(name="message", id="message",  required=true)= value= message ? message.message :""
+                if errors && errors.message 
+                    p.error= errors.message.msg
             button.btn.btn-primary(type="submit") Create Message

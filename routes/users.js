@@ -33,4 +33,11 @@ router.post(
 router.get("/message", ensureAuthenticated, message_controller.get_message);
 router.post("/message", ensureAuthenticated, message_controller.post_message);
 
+/* Delete message */
+router.post(
+  "/deleteMessage",
+  ensureAuthenticated,
+  message_controller.post_delete_message
+);
+
 module.exports = router;
