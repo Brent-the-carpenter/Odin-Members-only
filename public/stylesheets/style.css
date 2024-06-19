@@ -128,7 +128,7 @@ main {
     color: black;
   }
   img {
-    width: 540px;
+    max-width: 500px;
     border-radius: 10px;
   }
 }
@@ -138,7 +138,7 @@ main {
   flex-direction: column;
   gap: 10px;
   max-width: 500px;
-  width: 100%;
+
   padding: 20px;
 
   border: 1px solid #333;
@@ -237,4 +237,13 @@ footer {
   position: sticky;
   bottom: 0;
   width: 100%;
+}
+
+@media screen and (max-width: 400px) {
+  .secret-image {
+    width: 100%;
+  }
+  .container {
+    width: 100%;
+  }
 }
